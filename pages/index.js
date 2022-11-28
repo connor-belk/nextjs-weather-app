@@ -18,7 +18,6 @@ export default function Home() {
     setLoading(true);
     axios.get(url).then((res) => {
       setWeather(res.data);
-      console.log(res.data);
     });
     setCity("");
     setLoading(false);
