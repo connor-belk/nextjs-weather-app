@@ -1,34 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Weather App Created as a practice Next.js project.
 
-## Getting Started
+- Deployed App can be found here:
 
-First, run the development server:
+  - https://vercel.com/afkoding/nextjs-weather-app/EGSQZbFD7QWRRFdx4TTK2QerNcRC
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- Using the OpenWeatherMap API, I followed a video (GH:fireclint|YT:Code Commerce) and created a project to find basic weather data by city name.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+  - Shown on screen is the sky condition, current temperature, feels-like temperature, humidity, wind speed, and wind direction.
+  - This is used with the free level of OpenWeatherMap. So, if it is not working, its probably because I reached my limit on API requests.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- To search:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+  - Type city into search bar (No state or country needed)
+    - I understand this can possibly give the wrong city data; I am still in the process of over building this app.
+  - Press ENTER or click the search icon.
+  - And BOOM! There ya go. Weather information at the press of a button.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Let me know how I did. Give me suggestions for future features!
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+(This is my first _real_ project that I actually deployed.)
