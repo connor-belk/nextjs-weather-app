@@ -12,7 +12,7 @@
 - To search:
 
   - Type city into search bar (No state or country needed)
-    - I understand this can possibly give the wrong city data; I am still in the process of over building this app.
+    - I understand this will potentially give the wrong city data; I am still in the process of **over-building** this app.
   - Press ENTER or click the search icon.
   - And BOOM! There ya go. Weather information at the press of a button.
 
