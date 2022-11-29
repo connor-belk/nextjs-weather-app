@@ -50,7 +50,7 @@ export default function Home() {
           >
             <div>
               <input
-                className="bg-transparent text-white border-none focus:outline-none text-2xl placeholder:text-gray"
+                className="bg-transparent backdrop-blur-sm text-white border-none focus:outline-none text-2xl placeholder:text-gray"
                 type="text"
                 placeholder="Search City"
                 onChange={(e) => setCity(e.target.value)}

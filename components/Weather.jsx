@@ -52,7 +52,7 @@ const Weather = ({ data }) => {
         </div>
         <p className="text-9xl">{data.main.temp.toFixed(0)}&#176;</p>
       </div>
-      <div className="bg-white/5 py-5 px-3 rounded-xl flex flex-col justify-center items-center relative">
+      <div className="bg-white/5 py-5 px-3 rounded-xl flex flex-col justify-center items-center relative backdrop-blur-sm shadow-glass border border-white/5">
         <p className="text-3xl font-thin pb-6 text-center">
           Weather in{" "}
           <span className="font-mono font-thin text-green-400">
