@@ -23,6 +23,14 @@ export default function Home() {
     setLoading(false);
   };
 
+  useEffect(() => {
+    window.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        e.target.blur();
+      }
+    });
+  }, []);
+
   if (loading) {
     return <Loader />;
   } else {
