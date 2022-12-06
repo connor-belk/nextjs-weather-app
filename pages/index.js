@@ -16,7 +16,7 @@ export default function Home() {
   const fetchWeather = async (e) => {
     e.preventDefault();
     setLoading(true);
-    axios.get(url).then((res) => {
+    await axios.get(url).then((res) => {
       setWeather(res.data);
     });
     setCity("");
@@ -68,7 +68,13 @@ export default function Home() {
       </div>
 
       {/* WEATHER DISPLAY */}
-      {loading ? <Loader /> : weather.main && <Weather data={weather} />}
+
+      {loading ? (
+        <Loader className="text-center" />
+      ) : (
+        weather.main && <Weather data={weather} />
+      )}
+
       {/* {weather.main ? <Weather data={weather} /> : <Loader />} */}
     </div>
   );

@@ -14,15 +14,16 @@
 #loader::before {
   animation: 1.5s linear infinite spinner;
   animation-play-state: inherit;
-  border: 8px solid lightgray;
-  border-bottom-color: #1c87c9;
+  border: 10px solid #fdfdfd;
+  border-bottom-color: #343434;
   border-radius: 50%;
   content: "";
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
   position: absolute;
-  top: 10%;
-  left: 10%;
+  top: 50%;
+  left: 50%;
   transform: translate3d(-50%, -50%, 0);
   will-change: transform;
+  filter: opacity(25%);
 }
