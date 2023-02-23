@@ -2,7 +2,7 @@
 
 - Deployed App can be found here:
 
-  - https://nextjs-weather-app-inky.vercel.app/
+  - https://simplewx.vercel.app/
 
 - Using the OpenWeatherMap API, I followed a video (GH:fireclint|YT:Code Commerce) and created a project to find basic weather data by city name.
 
