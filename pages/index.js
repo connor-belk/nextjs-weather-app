@@ -6,6 +6,7 @@ import { BsSearch } from "react-icons/bs";
 import Weather from "../components/Weather";
 import WeatherOneCall from "../components/WeatherOneCall";
 import Loader from "../components/Loader";
+import Debug from "../components/Debug";
 
 export default function Home() {
   // const [city, setCity] = useState("");
@@ -27,7 +28,7 @@ export default function Home() {
   const fetchWeather = async (e) => {
     // e.preventDefault();
     setLoading(true);
-    await axios.get(oneCallURL).then((res) => {
+    await axios.get(updatedOneCallURL).then((res) => {
       setWeather(res.data);
     });
     // setCity("");
@@ -43,8 +44,11 @@ export default function Home() {
       .then((res) => {
         setLat(res.data[0].lat);
         setLong(res.data[0].lon);
+        setUpdatedOneCallURL(
+          `https://api.openweathermap.org/data/3.0/onecall?lat=${res.data[0].lat}&lon=${res.data[0].lon}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`
+        );
         console.log(
-          `Location FOUND. Lat: ${res.data[0].lat} Long: ${res.data[0].lon}`
+          `Location FOUND. Lat: ${res.data[0].lat} Long: ${res.data[0].lon}. Setting URL.`
         );
       })
       .then(() => {
@@ -104,12 +108,7 @@ export default function Home() {
       </div>
 
       {/* DEBUG */}
-      <div className="absolute top-0 left-0 text-white">
-        <p>cityState={cityState}</p>
-        <p>lat={lat}</p>
-        <p>long={long}</p>
-        <p>updatedOneCallURL={updatedOneCallURL}</p>
-      </div>
+      <Debug debugData={[cityState, lat, long, updatedOneCallURL]} />
 
       {/* WEATHER DISPLAY */}
 
