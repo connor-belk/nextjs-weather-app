@@ -25,39 +25,33 @@ export default function Home() {
 
   let oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
 
-  const fetchWeather = async (e) => {
-    // e.preventDefault();
-    setLoading(true);
-    await axios.get(updatedOneCallURL).then((res) => {
-      setWeather(res.data);
-    });
-    // setCity("");
-    setLoading(false);
+  const fetchLocation = async () => {
+    const response = await axios.get(geoUrl);
+    console.log(response.data);
+    setLat(response.data[0].lat);
+    setLong(response.data[0].lon);
+    setUpdatedOneCallURL(
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${response.data[0].lat}&lon=${response.data[0].lon}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`
+    );
+    console.log("LOCATION RECEIVED.");
   };
 
-  const fetchLocation = async (e) => {
+  const fetchWeather = async () => {
+    console.log("FETCHING WEATHER.");
+    const res = await axios.get(
+      `https://api.openweathermap.org/data/3.0/onecall?lat=34.2257282&lon=-77.9447107&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`
+    );
+    setWeather(res.data);
+    console.log("after setWeather().");
+    console.log(weather);
+  };
+
+  const fetchData = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("Fetching location...");
-    await axios
-      .get(geoUrl)
-      .then((res) => {
-        setLat(res.data[0].lat);
-        setLong(res.data[0].lon);
-        setUpdatedOneCallURL(
-          `https://api.openweathermap.org/data/3.0/onecall?lat=${res.data[0].lat}&lon=${res.data[0].lon}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`
-        );
-        console.log(
-          `Location FOUND. Lat: ${res.data[0].lat} Long: ${res.data[0].lon}. Setting URL.`
-        );
-      })
-      .then(() => {
-        console.log("Waiting 1.5 seconds...");
-        setTimeout(() => {
-          console.log("Fetching weather...");
-          fetchWeather();
-        }, 1500);
-      });
+    await fetchLocation();
+    await fetchWeather();
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -88,7 +82,7 @@ export default function Home() {
       <div className="relative flex justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10">
         <form
           className="flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2xl"
-          onSubmit={fetchLocation}
+          onSubmit={fetchData}
         >
           <div>
             <input
@@ -108,7 +102,16 @@ export default function Home() {
       </div>
 
       {/* DEBUG */}
-      <Debug debugData={[cityState, lat, long, updatedOneCallURL]} />
+      <Debug
+        debugData={[
+          cityState,
+          geoUrl,
+          lat,
+          long,
+          updatedOneCallURL,
+          oneCallURL,
+        ]}
+      />
 
       {/* WEATHER DISPLAY */}
 
