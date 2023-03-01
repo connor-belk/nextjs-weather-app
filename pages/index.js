@@ -13,9 +13,10 @@ export default function Home() {
   const [cityState, setCityState] = useState("");
   const [weather, setWeather] = useState({});
   const [loading, setLoading] = useState(false);
-  const [lat, setLat] = useState("");
-  const [long, setLong] = useState("");
-  const [updatedOneCallURL, setUpdatedOneCallURL] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
 
   // var country_code = "US";
 
@@ -23,34 +24,39 @@ export default function Home() {
 
   const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityState},US&limit=5&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
 
-  let oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
-
-  const fetchLocation = async () => {
-    const response = await axios.get(geoUrl);
-    console.log(response.data);
-    setLat(response.data[0].lat);
-    setLong(response.data[0].lon);
-    setUpdatedOneCallURL(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${response.data[0].lat}&lon=${response.data[0].lon}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`
-    );
-    console.log("LOCATION RECEIVED.");
+  const setOneCallURL = (lat, long) => {
+    const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&units=imperial`;
+    return oneCallURL;
   };
 
-  const fetchWeather = async () => {
-    console.log("FETCHING WEATHER.");
-    const res = await axios.get(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=34.2257282&lon=-77.9447107&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`
-    );
-    setWeather(res.data);
-    console.log("after setWeather().");
-    console.log(weather);
+  const setLocationData = async (data) => {
+    setCity(data[0].name);
+    setState(data[0].state);
+    setLatitude(data[0].lat);
+    setLongitude(data[0].lon);
   };
+
+  const setWeatherData = async (weatherData) => {
+    setWeather(weatherData);
+  };
+
+  // let oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
 
   const fetchData = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await fetchLocation();
-    await fetchWeather();
+    console.log("fetching geo data...");
+    const geoRes = await axios.get(geoUrl);
+    console.log("setting geo data...");
+    await setLocationData(geoRes.data);
+    console.log("setting weather request URL...");
+    const oneCallURL = setOneCallURL(geoRes.data[0].lat, geoRes.data[0].lon);
+    console.log("fetching weather data...");
+    const weatherRes = await axios.get(oneCallURL);
+    console.log("setting weather data...");
+    setWeatherData(weatherRes.data);
+    console.log("fetching complete.");
+    console.log(weather);
     setLoading(false);
   };
 
@@ -106,10 +112,12 @@ export default function Home() {
         debugData={[
           cityState,
           geoUrl,
-          lat,
-          long,
-          updatedOneCallURL,
-          oneCallURL,
+          latitude,
+          longitude,
+          city,
+          state,
+          // updatedOneCallURL,
+          // oneCallURL,
         ]}
       />
 
