@@ -58,6 +58,8 @@ export default function Home() {
     console.log("fetching complete.");
     console.log(weather);
     setLoading(false);
+
+    // so many comments
   };
 
   useEffect(() => {
